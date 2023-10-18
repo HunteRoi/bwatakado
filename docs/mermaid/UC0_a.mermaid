@@ -1,0 +1,24 @@
+sequenceDiagram
+    actor T as Tenancier
+    participant B as Borne
+    participant DB as Base de Données
+    activate B
+
+    T->>B: Sélectionne l'icône "Paramètres"
+    B-->>T: Affiche le champ "mot de passe"
+    T->>B: Rentre le mot de passe
+    B->>+DB: Demande les informations du compte "Tenancier"
+    DB-->>-B: Retourne les informations demandées
+    B->>B: Compare les mots de passe 
+    
+    alt Les mots de passe correspondent
+        B-->>T: Affiche les paramètres
+        Note over T, DB: Le tenancier effectue ses opérations (UC1 à UC3)
+        T->>B: Appuie sur "Se déconnecter"
+    else
+        B-->>T: Affiche une erreur
+        T->>B: Ferme le message d'erreur
+    end
+    B-->>T: Affiche l'écran de démarrage
+
+    deactivate B

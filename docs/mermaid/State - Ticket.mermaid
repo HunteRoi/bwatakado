@@ -1,0 +1,17 @@
+stateDiagram-v2
+    state est_gagnant <<choice>>
+    state Liaison <<join>>
+
+    Lié: Lié à un client
+    Gagnant: Est gagnant
+    NonGagnant: N'est pas gagnant
+
+    [*] --> Imprimé
+    Imprimé --> est_gagnant
+    est_gagnant --> Gagnant
+    est_gagnant --> NonGagnant
+    Gagnant --> Liaison
+    NonGagnant --> Liaison
+    Liaison --> Lié
+    Lié --> [*]: Joué
+

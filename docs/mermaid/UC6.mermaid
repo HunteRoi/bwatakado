@@ -1,0 +1,54 @@
+%% lancer le tirage au sort du ticket
+
+sequenceDiagram
+    actor U as Utilisateur
+    participant B as Borne
+    participant DB as Base de Données
+    activate B
+
+    Note over U, DB: L'utilisateur est connecté à la borne
+
+    U->>B: Appuie sur "Tirage au sort"
+    B-->>U: Affiche le formulaire de validation du code PIN
+    U->>B: Remplit le formulaire
+    U->>B: Valide le formulaire
+    B->>B: Confirme le code PIN
+
+    alt Le code PIN est valide
+
+        B->>+DB: Demande la liste des tickets disponibles
+        DB-->>-B: Renvoie les tickets du client triés sur la date d'ajout
+
+        alt La liste n'est pas vide
+            B-->>U: Affiche le nombre de tickets à tirer
+            U->>B: Appuie sur "Tirer un lot" ou "Tirer tous les lots"
+
+            alt L'utilisateur veut tirer un lot
+                B->>B: Choisit le premier ticket de la liste
+                B->>U: Affiche l'animation du tirage au sort
+                B-->>U: Affiche le résultat du ticket sélectionné
+            else L'utilisateur veut tirer tous les lots
+                B->>B: Choisit tous les tickets de la liste
+                B->>U: Affiche l'animation du tirage au sort
+                B-->>U: Affiche les résultats des tickets sélectionnés
+            end
+
+            alt L'utilisateur a gagné un ou plusieurs lots
+                B->>U: Dispense les lots gagnés
+            end
+
+
+        else La liste est vide
+            B->>U: Affiche "Aucun ticket disponible"
+        end
+
+        U->>B: Appuie sur "Retour"
+
+    else Le code PIN est invalide
+        B-->>U: Affiche un message d'erreur
+        U->>B: Ferme la fenêtre du message d'erreur
+    end
+    
+    B-->>U: Retourne à l'écran d'accueil
+
+    deactivate B

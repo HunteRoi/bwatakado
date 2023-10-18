@@ -1,0 +1,7 @@
+stateDiagram-v2
+    [*] --> Déverrouillé
+    note left of Déverrouillé
+        Les tickets ne sont pas encore imprimés
+    end note
+    Déverrouillé --> Verrouillé: Impression des tickets
+    Verrouillé --> [*]: Tous les tickets sont joués

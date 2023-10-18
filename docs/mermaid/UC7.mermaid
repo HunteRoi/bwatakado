@@ -1,0 +1,16 @@
+%% notifier le manque de lots
+%% Dans le cas du tenancier qui veut réimprimer des tickets
+%%      --> afficher un message d'erreur dans le cas où le nombre de pièces disponibles n'a pas été ajusté
+
+sequenceDiagram
+    actor U as Utilisateur
+    participant B as Borne
+    participant DB as Base de Données
+    activate B
+
+    Note over U, DB: L'utilisateur est connecté à la borne
+
+    U ->> B:
+
+    deactivate B
+

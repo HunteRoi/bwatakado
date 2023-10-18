@@ -1,0 +1,32 @@
+gantt
+    title Répartition des tâches pour le projet de ASIAP
+    todayMarker off
+    dateFormat DD/MM/YYYY
+    axisFormat %d-%m-%Y
+    tickInterval 1day
+    
+    section Analyse
+    Définition des besoins client                       :A1, 02/10/2023, 3d
+        section Rédaction des scénarii
+        UC1 - Configurer le mot de passe du tenancier   :UC1, after A1, 1d
+        UC2 - Configurer les lots                       :UC2, after A1, 1d
+        UC3 - Générer les tickets en batch              :UC3, after UC2, 1d
+        UC4 - Créer un compte client                    :UC4, after UC2, 1d
+        UC5 - Lier un ticket à un compte                :UC5, after UC3, 1d
+        UC6 - Réaliser le tirage au sort                :UC6, after UC3, 1d
+    
+    section Conception        
+    Rédiger les diagrammes d'états et de classes        :C1, after UC6, 6d
+    %% Pour UC1->UC8
+
+    Rédiger la documentation des tickets                :C2, after C1, 1d
+    %% Génération d'un identifiant unique
+    
+    section Programmation
+    Mettre en place la structure du code                :P0, after C2, 3d
+    Développer UC1                                      :P1, after P0, 2d
+    Développer UC2                                      :P2, after P1, 2d
+    Développer UC3                                      :P3, after P2, 2d
+    Développer UC4                                      :P4, after P2, 2d
+    Développer UC5                                      :P5, after P3, 2d
+    Développer UC6                                      :P6, after P3, 2d

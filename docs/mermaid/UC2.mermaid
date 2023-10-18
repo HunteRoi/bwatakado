@@ -1,0 +1,25 @@
+sequenceDiagram
+    actor T as Tenancier
+    participant B as Borne
+    participant DB as Base de Données
+    activate B
+
+    Note over T, DB: Le tenancier est connecté à la borne
+
+    T->>+B: Choisit l'option "Paramétriser les lots"
+    B-->>T: Affiche la fenêtre de changement des lots
+    T->>B: <action>
+    opt L'utilisateur a choisi d'ajouter ou modifier un lot
+    B->>B: Vérifie les données
+    end
+    B->>+DB: Met à jour les lots
+    alt La modification s'est bien effectuée
+        DB-->>B: Confirme la modification
+    else
+        DB-->>-B: Infirme la modification
+    end
+    B-->>T: Affiche le message
+    T->>B: Ferme la fenêtre du message
+    B-->>-T: Affiche la fenêtre de changement des lots
+
+    deactivate B

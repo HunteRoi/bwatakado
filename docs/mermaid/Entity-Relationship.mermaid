@@ -1,0 +1,54 @@
+erDiagram
+    %% Terminal is not stored in Database, but in a file
+    Terminal {
+        password varchar(255)
+    }
+
+    Prize {
+        id int PK
+        type varchar(255)
+        name varchar(255)
+        description varchar(255)
+        quantity int
+    }
+
+    Ticket {
+        id int PK
+        code varchar(255) UK
+        creationDate date
+        isPrinted boolean
+        isWinning boolean
+        hasBeenClaimed boolean
+        prizeId int FK
+        userId int FK
+    }
+
+    User {
+        id int PK
+        firstname varchar(255)
+        lastname varchar(255)
+        email varchar(255)
+        pinCode int(4)
+        phoneNumber varchar(255)
+        address varchar(255)
+        addressNumber int
+        addressBox varchar(255)
+        localityId int FK
+    }
+
+    Locality {
+        id int PK
+        name varchar(255)
+        postalCode int
+        provinceId int FK
+    }
+
+    Province {
+        id int PK
+        name varchar(255)
+    }
+
+    User }o--|| Locality: "lives in"
+    Locality }o--|| Province: "is in"
+    Ticket }o--o| User: "has"
+    Ticket }o--o| Prize: "can win"

@@ -1,0 +1,24 @@
+sequenceDiagram
+    actor U as Utilisateur
+    participant B as Borne
+    participant DB as Base de Données
+    activate B
+
+    U->>B: Appuie sur "Créer un compte client"
+    B-->>U: Affiche le formulaire de création de compte
+    U->>B: Remplit le formulaire
+    U->>B: Valide le formulaire
+    B->>B: Vérifie les informations
+    B->>+DB: Enregistre le compte client
+
+    alt L'enregistrement s'est bien déroulé
+        DB-->>-B: Confirme l'enregistrement
+        B-->>U: Affiche l'écran de connexion
+    else
+        B-->>U: Affiche le message
+        U->>B: Ferme la fenêtre du message
+        B-->>U: Affiche le formulaire de création de compte
+    end
+
+    deactivate B
+

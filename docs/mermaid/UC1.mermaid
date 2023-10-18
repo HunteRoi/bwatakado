@@ -1,0 +1,23 @@
+sequenceDiagram
+    actor T as Tenancier
+    participant B as Borne
+    participant DB as Base de Données
+
+    Note over T, DB: Le tenancier est connecté à la borne
+
+    T->>+B: Choisit l'option "Changer mot de passe"
+    B-->>T: Affiche la fenêtre de changement de mot de passe
+    T->>B: Remplit le champ "mot de passe"
+    T->>B: Valide le formulaire
+    B->>B: Hash le mot de passe donné
+    B->>+DB: Met à jour le champ "mot de passe"
+
+    alt La modification s'est bien effectuée
+        DB-->>B: Confirme la modification
+    else
+        DB-->>-B: Infirme la modification
+    end
+
+    B-->>T: Affiche le message
+    T->>B: Ferme la fenêtre du message
+    B-->>-T: Affiche les paramètres

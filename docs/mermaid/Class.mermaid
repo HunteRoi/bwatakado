@@ -1,0 +1,60 @@
+classDiagram
+    class Terminal {
+        admin_password: String
+
+        set_admin_password(old, new)
+        create_prize()
+        duplicate_prize(prize)
+        update_prize(prize)
+        delete_prize(prize)
+    }
+
+    class Prize {
+        name: String
+        description: String
+        type: String
+        quantity_max: int
+
+        /tickets_nbr: int
+        /quantity_redeemed: int
+        /all_tickets_printed: boolean
+
+        print_tickets(number)
+    }
+
+    class Ticket {
+        code: String
+        creation_date: Date
+        is_printed: boolean
+        is_winning: boolean
+        has_been_claimed: boolean
+
+        claim_prize()
+    }
+
+    class User {
+        firstname: String
+        lastname: String
+        phone_number: String
+        email: String
+        pin_code: String
+        address: String
+
+        add_ticket(ticket)
+        claim_prizes()
+    }
+
+    class Locality {
+        name: String
+        postal_code: int
+    }
+
+    class Province {
+        name: String
+    }
+
+    Ticket "*" <-- "1" Prize: contains
+    User "1" --> "*" Ticket:  has
+    Province "1" --> "*" Locality: regroups
+    Locality "1" <-- "*" User: lives in
+    Terminal "1" --> "*" Prize: manages

@@ -1,0 +1,25 @@
+sequenceDiagram
+    actor U as Utilisateur
+    participant B as Borne
+    participant DB as Base de Données
+    activate B
+
+    U->>B: Appuie sur "Se connecter"
+    B-->>U: Affiche l'écran de connexion
+    U->>B: Saisit son numéro de téléphone
+    U->>B: Valide le formulaire
+    B->>+DB: Récupère le client sur base du n° de téléphone
+
+    alt Le client existe
+        DB-->>B: Retourne le client
+        B-->>U: Affiche la page utilisateur
+        Note over U, DB: Le client effectue ses opérations (UC5 à UC8)
+        U->>B: Appuie sur "Se déconnecter"
+    else
+        DB-->>-B: Retourne une erreur
+        B-->>U: Affiche un message d'erreur
+        U->>B: Ferme la fenêtre du message
+    end
+    B-->>U: Affiche l'écran de connexion
+
+    deactivate B

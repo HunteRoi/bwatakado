@@ -1,0 +1,26 @@
+sequenceDiagram
+    actor U as Utilisateur
+    participant B as Borne
+    participant DB as Base de Données
+    activate B
+
+    Note over U, DB: L'utilisateur est connecté à la borne
+
+    U->>B: Appuie sur "Lier un ticket"
+    B-->>U: Affiche l'écran d'enregistrement d'un ticket
+    U->>B: Saisit le numéro du ticket
+    U->>B: Valide le formulaire
+    B->>+DB: Récupère le ticket sur base du numéro
+
+    alt Le ticket existe et n'est pas déjà assigné
+        B->>+DB: Assigne le ticket au client
+        DB-->>-B: Confirme la modification
+    else
+        DB-->>-B: Retourne une erreur
+    end
+
+    B-->>U: Affiche le message
+    U->>B: Ferme la fenêtre du message
+    B-->>U: Affiche l'écran d'enregistrement d'un ticket
+
+    deactivate B

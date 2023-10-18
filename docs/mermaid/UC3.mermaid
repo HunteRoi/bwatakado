@@ -1,0 +1,36 @@
+sequenceDiagram
+    actor T as Tenancier
+    participant B as Borne
+    participant DB as Base de Données
+    activate B
+
+    Note over T, DB: Le tenancier est connecté à la borne
+
+    T->>B: Choisit l'option "Imprimer des tickets"
+    B->>+DB: Récupère les lots
+    DB-->>-B: Renvoie la liste de lots
+    B-->>T: Affiche la liste des lots
+    T->>B: Sélectionne un lot
+    T->>B: Choisit le nombre de tickets à imprimer pour le lot
+    T->>B: Lance la génération des tickets
+
+    B->>B: Génère la liste de tickets
+
+    B->>+DB: Met à jour les tickets
+    alt La modification s'est bien effectuée
+        DB-->>B: Confirme la modification
+
+        par
+            B-->>T: Affiche le message
+        and
+            B-->>T: Imprime les tickets
+        end
+    else
+        DB-->>-B: Infirme la modification
+        B-->>T: Affiche le message d'erreur
+    end
+
+    T->>B: Ferme la fenêtre du message
+    B-->>T: Affiche la fenêtre de changement des lots
+
+    deactivate B
