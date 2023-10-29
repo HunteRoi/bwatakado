@@ -2,7 +2,7 @@
 
 ## Getting started
 
-This application is built with [Python](https://www.python.org/) and [WxPython](https://www.wxpython.org/).
+This application is built with [Python](https://www.python.org/).
 Its objective is to offer to an owner an intuitive interface to manage prizes and winners of a tombola.
 
 ### Prerequisites
