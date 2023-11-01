@@ -1,7 +1,6 @@
 classDiagram
     class Terminal {
         admin_password: String
-
         set_admin_password(old, new)
         create_prize()
         duplicate_prize(prize)
@@ -14,12 +13,10 @@ classDiagram
         description: String
         type: String
         quantity_max: int
-
+        all_tickets_generated: boolean
         /tickets_nbr: int
         /quantity_redeemed: int
-        /all_tickets_printed: boolean
-
-        print_tickets(number)
+        generate_tickets(number)
     }
 
     class Ticket {
@@ -28,7 +25,6 @@ classDiagram
         is_printed: boolean
         is_winning: boolean
         has_been_claimed: boolean
-
         claim_prize()
     }
 
@@ -39,7 +35,6 @@ classDiagram
         email: String
         pin_code: String
         address: String
-
         add_ticket(ticket)
         claim_prizes()
     }
@@ -54,7 +49,7 @@ classDiagram
     }
 
     Ticket "*" <-- "1" Prize: contains
-    User "1" --> "*" Ticket:  has
+    User "1" --> "*" Ticket: has
     Province "1" --> "*" Locality: regroups
     Locality "1" <-- "*" User: lives in
     Terminal "1" --> "*" Prize: manages
