@@ -1,5 +1,9 @@
 # bwatakado
 
+[![pipeline status](https://gitlab.com/DTM-Henallux/MASI/etudiants/devresse-tinael/ap2324/bwatakado/badges/main/pipeline.svg)](https://gitlab.com/DTM-Henallux/MASI/etudiants/devresse-tinael/ap2324/bwatakado/-/commits/main)
+[![coverage report](https://gitlab.com/DTM-Henallux/MASI/etudiants/devresse-tinael/ap2324/bwatakado/badges/main/coverage.svg)](https://gitlab.com/DTM-Henallux/MASI/etudiants/devresse-tinael/ap2324/bwatakado/-/commits/main)
+[![Latest Release](https://gitlab.com/DTM-Henallux/MASI/etudiants/devresse-tinael/ap2324/bwatakado/-/badges/release.svg)](https://gitlab.com/DTM-Henallux/MASI/etudiants/devresse-tinael/ap2324/bwatakado/-/releases)
+
 ## Getting started
 
 This application is built with [Python](https://www.python.org/).
