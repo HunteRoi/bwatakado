@@ -9,17 +9,11 @@ from bwatakado.src.infrastructure.services.terminal_json_configuration_service i
 class TestTerminalJsonConfigurationService:
     """Integration tests for TerminalJsonConfigurationService."""
 
-    @pytest.fixture(scope="class")
-    def temp_folder(self, tmp_path_factory):
+    @pytest.fixture(scope="function", autouse=True, name="temp_folder")
+    def initialize_temp_folder(self, tmp_path_factory):
         """Create a temporary folder for the test."""
-
         base_path = "test_json_config_service"
-        complete_path = tmp_path_factory.getbasetemp().joinpath(base_path)
-
-        if complete_path.exists():
-            return complete_path
-
-        return str(tmp_path_factory.mktemp(base_path, False))
+        return str(tmp_path_factory.mktemp(base_path, True))
 
     def test_write(self, temp_folder):
         """Ensure that the terminal configuration is correctly written to file."""
