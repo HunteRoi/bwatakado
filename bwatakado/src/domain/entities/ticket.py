@@ -1,16 +1,30 @@
 import uuid
-from dataclasses import dataclass, field
 from datetime import datetime
 
 
-@dataclass
 class Ticket:
     """Ticket entity which represents a single ticket in the system."""
 
-    code: str = field(default_factory=lambda: str(
-        uuid.uuid4()), repr=True, init=False)
-    is_winning: bool = field(repr=True, init=True)
-    created_at: datetime = field(
-        default_factory=datetime.now, repr=True, init=False)
-    is_printed: bool = field(default=False, repr=True, init=False)
-    has_been_claimed: bool = field(default=False, repr=True, init=False)
+    def __init__(
+        self,
+        is_winning: bool,
+        ticket_id: int = None,
+        code: str = None,
+        created_at: datetime = None,
+        is_printed: bool = False,
+        has_been_claimed: bool = False,
+    ):
+        self.id = ticket_id
+        self.code = code or str(uuid.uuid4())
+        self.is_winning = is_winning
+        self.created_at = created_at or datetime.now()
+        self.is_printed = is_printed
+        self.has_been_claimed = has_been_claimed
+
+    def __eq__(self, other: object) -> bool:
+        """Compare two Ticket instances."""
+
+        if not isinstance(other, Ticket):
+            return False
+
+        return self.code == other.code

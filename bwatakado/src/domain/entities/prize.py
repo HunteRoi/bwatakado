@@ -7,13 +7,23 @@ from bwatakado.src.domain.exceptions.prize_locked_error import PrizeLockedError
 class Prize:
     """Prize entity which represents a prize in the system."""
 
-    def __init__(self, name: str, description: str, prize_type: str, quantity_max: int):
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        prize_type: str,
+        quantity_max: int,
+        prize_id: int = None,
+        tickets: list[Ticket] = None,
+        all_tickets_generated: bool = False,
+    ):
+        self.id = prize_id
         self.name = name
         self.description = description
         self.type = prize_type
         self.quantity_max = quantity_max
-        self.tickets: list[Ticket] = []
-        self.all_tickets_generated = False
+        self.tickets: list[Ticket] = tickets or []
+        self.all_tickets_generated = all_tickets_generated
 
     @property
     def tickets_nbr(self) -> int:
@@ -52,3 +62,13 @@ class Prize:
             for winning in random.sample(winning_values, len(winning_values))
         ]
         self.all_tickets_generated = True
+
+    def __eq__(self, other: object) -> bool:
+        """Compare two Prize instances."""
+
+        if not isinstance(other, Prize):
+            return False
+
+        return (
+            self.id == other.id and self.name == other.name and self.type == other.type
+        )

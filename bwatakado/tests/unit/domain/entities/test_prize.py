@@ -11,11 +11,12 @@ class TestPrize:
     def setup_before_each(self):
         """Setup before each test."""
 
-        return Prize("test name", "description test", "test type", 0)
+        return Prize("test name", "description test", "test type", 0, 1)
 
     def test_init(self, prize):
         """Test that Prizes are initialized correctly."""
 
+        assert prize.id == 1
         assert prize.name == "test name"
         assert prize.description == "description test"
         assert prize.type == "test type"
@@ -65,3 +66,28 @@ class TestPrize:
             prize.generate_tickets(5)
 
         assert prize.tickets_nbr == 5
+
+    def test_prize_equality(self):
+        """Test that two prizes are equal."""
+
+        prize_1 = Prize("test name", "description test", "test type", 0)
+        prize_2 = Prize("test name", "description test",
+                        "test type", 0, prize_1.id)
+
+        assert prize_1 == prize_2
+
+    @pytest.mark.parametrize(
+        "other_value",
+        [
+            0,
+            "other value",
+            0.4,
+            Prize("test name", "description test", "test type", 0),
+            Prize("test name", "description test", "test type", 2),
+        ],
+    )
+    def test_prize_inequality(self, other_value):
+        """Test that a prize is not equal to other objects."""
+
+        assert Prize("test name", "description test",
+                     "test type", 2, 1) != other_value
