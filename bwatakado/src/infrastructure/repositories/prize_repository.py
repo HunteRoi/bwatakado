@@ -30,3 +30,11 @@ class PrizeRepository(IPrizeRepository):
                 return None
 
             return model.to_prize()
+
+    def update_prize(self, prize: Prize) -> Prize:
+        with Session(self.engine) as session:
+            model = PrizeModel.from_prize(prize)
+            session.merge(model)
+            session.commit()
+
+            return model.to_prize()

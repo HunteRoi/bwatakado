@@ -13,3 +13,7 @@ class IPrizeRepository(ABC):
     @abstractmethod
     def get_prize(self, prize_id: int) -> Prize | None:
         """Gets the prize by its id."""
+
+    @abstractmethod
+    def update_prize(self, prize: Prize) -> Prize:
+        """Updates the prize."""
