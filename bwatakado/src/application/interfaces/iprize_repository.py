@@ -17,3 +17,7 @@ class IPrizeRepository(ABC):
     @abstractmethod
     def update_prize(self, prize: Prize) -> Prize:
         """Updates the prize."""
+
+    @abstractmethod
+    def delete_prize(self, prize_id: int) -> None:
+        """Deletes the prize."""

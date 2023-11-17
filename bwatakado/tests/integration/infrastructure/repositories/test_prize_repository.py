@@ -157,3 +157,14 @@ class TestPrizeRepository:
         self.verify_values(
             updated_prize, new_name, new_type, new_description, quantity_max, 0
         )
+
+    def test_delete_prize(self, repository: IPrizeRepository):
+        """Ensure that a prize can be deleted correctly."""
+
+        prize = repository.create_prize(
+            Prize("test_prize", "test_description", "test_type", 5)
+        )
+
+        repository.delete_prize(prize.id)
+
+        assert repository.get_prize(prize.id) is None

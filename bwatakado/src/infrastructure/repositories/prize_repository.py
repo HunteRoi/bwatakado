@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, select
+from sqlalchemy import create_engine, delete
 from sqlalchemy.orm import Session
 
 from bwatakado.src.application.interfaces.iprize_repository import IPrizeRepository
@@ -22,9 +22,7 @@ class PrizeRepository(IPrizeRepository):
 
     def get_prize(self, prize_id: int) -> Prize | None:
         with Session(self.engine) as session:
-            model = session.scalars(
-                select(PrizeModel).where(PrizeModel.id == prize_id)
-            ).first()
+            model: PrizeModel | None = session.get(PrizeModel, prize_id)
 
             if model is None:
                 return None
@@ -38,3 +36,8 @@ class PrizeRepository(IPrizeRepository):
             session.commit()
 
             return model.to_prize()
+
+    def delete_prize(self, prize_id: int) -> None:
+        with Session(self.engine) as session:
+            session.execute(delete(PrizeModel).where(PrizeModel.id == prize_id))
+            session.commit()
