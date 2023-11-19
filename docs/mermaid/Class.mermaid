@@ -28,7 +28,7 @@ classDiagram
         claim_prize()
     }
 
-    class User {
+    class Customer {
         firstname: String
         lastname: String
         phone_number: String
@@ -49,7 +49,7 @@ classDiagram
     }
 
     Ticket "*" <-- "1" Prize: contains
-    User "1" --> "*" Ticket: has
+    Customer "1" --> "*" Ticket: has
     Province "1" --> "*" Locality: regroups
-    Locality "1" <-- "*" User: lives in
+    Locality "1" <-- "*" Customer: lives in
     Terminal "1" --> "*" Prize: manages
