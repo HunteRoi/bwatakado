@@ -3,7 +3,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from bwatakado.src.application.use_cases.delete_prize.delete_prize import DeletePrize
+from bwatakado.src.application.use_cases.delete_prize import DeletePrize
 from bwatakado.src.domain.entities.prize import Prize
 from bwatakado.src.domain.exceptions.prize_not_found_error import PrizeNotFoundError
 

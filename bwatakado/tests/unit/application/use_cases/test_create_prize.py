@@ -3,7 +3,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from bwatakado.src.application.use_cases.create_prize.create_prize import CreatePrize
+from bwatakado.src.application.use_cases.create_prize import CreatePrize
 from bwatakado.src.domain.entities.prize import Prize
 
 
