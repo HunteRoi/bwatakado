@@ -20,10 +20,10 @@ erDiagram
         isWinning boolean
         hasBeenClaimed boolean
         prizeId int FK
-        userId int FK
+        CustomerId int FK
     }
 
-    User {
+    Customer {
         id int PK
         firstname varchar(255)
         lastname varchar(255)
@@ -31,8 +31,6 @@ erDiagram
         pinCode int(4)
         phoneNumber varchar(255)
         address varchar(255)
-        addressNumber int
-        addressBox varchar(255)
         localityId int FK
     }
 
@@ -48,7 +46,7 @@ erDiagram
         name varchar(255)
     }
 
-    User }o--|| Locality: "lives in"
+    Customer }o--|| Locality: "lives in"
     Locality }o--|| Province: "is in"
-    Ticket }o--o| User: "has"
+    Ticket }o--o| Customer: "has"
     Ticket }o--o| Prize: "can win"
