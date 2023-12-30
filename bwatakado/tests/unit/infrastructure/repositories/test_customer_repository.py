@@ -11,7 +11,10 @@ from bwatakado.src.infrastructure.repositories.customer_repository import (
 class TestCustomerRepository:
     """Test suite for the customer repository."""
 
-    @mock.patch("bwatakado.src.infrastructure.repositories.customer_repository.Session", name="session_mock")
+    @mock.patch(
+        "bwatakado.src.infrastructure.repositories.customer_repository.Session",
+        name="session_mock"
+    )
     @mock.patch(
         "bwatakado.src.infrastructure.repositories.customer_repository.create_engine",
         name="create_engine_mock"

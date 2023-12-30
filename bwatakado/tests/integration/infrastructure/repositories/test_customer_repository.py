@@ -36,3 +36,28 @@ class TestPrizeRepository:
         received_customer = repository.create_customer(customer)
 
         assert received_customer == customer
+
+    def test_get_customer_by_phone(
+        self,
+        repository: ICustomerRepository, customer: Customer
+    ):
+        """Test that a customer is returned when there's a match on the phone number."""
+        repository.create_customer(customer)
+
+        received_customer = repository.find_by_phone_number(
+            customer.phone_number
+        )
+
+        assert customer == received_customer
+
+    def test_get_customer_by_phone_returns_none_when_not_existing(
+        self,
+        repository: ICustomerRepository, customer: Customer
+    ):
+        """Test that a customer is not returned when the phone number does not match."""
+
+        received_customer = repository.find_by_phone_number(
+            customer.phone_number
+        )
+
+        assert received_customer is None

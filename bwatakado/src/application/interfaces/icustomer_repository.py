@@ -9,3 +9,7 @@ class ICustomerRepository(ABC):
     @abstractmethod
     def create_customer(self, customer: Customer) -> Customer:
         """Creates the customer."""
+
+    @abstractmethod
+    def find_by_phone_number(self, phone_number: str) -> Customer | None:
+        """Finds the customer by phone number."""

@@ -21,3 +21,14 @@ class CustomerRepository(ICustomerRepository):
             session.commit()
 
             return model.to_customer()
+
+    def find_by_phone_number(self, phone_number: str) -> Customer | None:
+        with Session(self.engine) as session:
+            model = session.query(CustomerModel).filter(
+                CustomerModel.phone_number == phone_number
+            ).first()
+
+            if model is None:
+                return None
+
+            return model.to_customer()
