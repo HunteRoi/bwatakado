@@ -1,0 +1,39 @@
+stateDiagram-v2
+    direction LR
+    state "Se connecter" as signin
+    state "Modifier le mot de passe" as edit_password
+    state "Paramétriser les lots" as edit_prizes
+    state "Créer un lot" as create_prize
+    state "Modifier un lot" as edit_prize
+    state "Supprimer un lot" as delete_prize
+    state "Générer les tickets" as generate
+    
+    state connection_if_state <<choice>>
+    state if_state <<choice>>
+    state second_if_state <<choice>>
+
+    [*] --> connection_if_state
+    connection_if_state --> signin
+    signin --> if_state
+    
+    if_state --> edit_password
+    edit_password --> if_state
+    
+    if_state --> edit_prizes
+    edit_prizes --> second_if_state
+    
+    second_if_state --> if_state
+    
+    second_if_state --> create_prize
+    create_prize --> second_if_state
+    
+    second_if_state --> edit_prize
+    edit_prize --> second_if_state
+    
+    second_if_state --> delete_prize
+    delete_prize --> second_if_state
+    
+    second_if_state --> generate
+    generate --> second_if_state
+    if_state --> [*]
+    connection_if_state --> [*]
