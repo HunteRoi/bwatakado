@@ -7,7 +7,7 @@ sequenceDiagram
 
     T->>+B: Choisit l'option "Changer mot de passe"
     B-->>T: Affiche la fenêtre de changement de mot de passe
-    T->>B: Remplit le champ "mot de passe"
+    T->>B: Remplit le formulaire
     T->>B: Valide le formulaire
     B->>B: Hash le mot de passe donné
     B->>+DB: Met à jour le champ "mot de passe"
