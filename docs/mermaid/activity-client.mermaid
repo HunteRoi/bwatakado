@@ -1,0 +1,19 @@
+stateDiagram-v2
+    direction LR
+    state "Se connecter" as signin
+    state "Créer un compte" as signup
+    state "Ajouter un ticket" as add_ticket
+    state "Exécuter un tirage au sort" as run
+    state connection_if_state <<choice>>
+    state if_state <<choice>>
+
+    [*] --> connection_if_state
+    connection_if_state --> signin
+    connection_if_state --> signup
+    signup --> signin
+    signin --> if_state
+    if_state --> add_ticket
+    add_ticket --> if_state
+    if_state --> run
+    run --> if_state
+    if_state --> [*]
