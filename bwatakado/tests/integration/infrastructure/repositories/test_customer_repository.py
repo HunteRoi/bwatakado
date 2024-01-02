@@ -1,10 +1,14 @@
 import pytest
 
+from bwatakado.src.application.interfaces.icustomer_repository import (
+    ICustomerRepository,
+)
 from bwatakado.src.domain.entities.customer import Customer
-from bwatakado.src.infrastructure.models.base import Base
-from bwatakado.src.application.interfaces.icustomer_repository import ICustomerRepository
-from bwatakado.src.infrastructure.repositories.customer_repository import CustomerRepository
 from bwatakado.src.domain.value_objects.address import Address
+from bwatakado.src.infrastructure.models.base import Base
+from bwatakado.src.infrastructure.repositories.customer_repository import (
+    CustomerRepository,
+)
 
 
 class TestPrizeRepository:
@@ -14,12 +18,12 @@ class TestPrizeRepository:
     def generate_customer(self):
         """Initialize a customer."""
         return Customer(
-            "firstname",
-            "lastname",
-            "0000000000",
-            "email@example.com",
-            Address("city", "state", "country", "0000"),
-            "0000"
+            firstname="firstname",
+            lastname="lastname",
+            phone_number="0000000000",
+            email="email@example.com",
+            address=Address("city", "state", "country", "0000"),
+            pin_code="0000",
         )
 
     @pytest.fixture(autouse=True, name="repository")
@@ -38,26 +42,20 @@ class TestPrizeRepository:
         assert received_customer == customer
 
     def test_get_customer_by_phone(
-        self,
-        repository: ICustomerRepository, customer: Customer
+        self, repository: ICustomerRepository, customer: Customer
     ):
         """Test that a customer is returned when there's a match on the phone number."""
         repository.create_customer(customer)
 
-        received_customer = repository.find_by_phone_number(
-            customer.phone_number
-        )
+        received_customer = repository.find_by_phone_number(customer.phone_number)
 
         assert customer == received_customer
 
     def test_get_customer_by_phone_returns_none_when_not_existing(
-        self,
-        repository: ICustomerRepository, customer: Customer
+        self, repository: ICustomerRepository, customer: Customer
     ):
         """Test that a customer is not returned when the phone number does not match."""
 
-        received_customer = repository.find_by_phone_number(
-            customer.phone_number
-        )
+        received_customer = repository.find_by_phone_number(customer.phone_number)
 
         assert received_customer is None

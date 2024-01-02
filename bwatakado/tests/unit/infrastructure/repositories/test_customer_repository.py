@@ -13,15 +13,15 @@ class TestCustomerRepository:
 
     @mock.patch(
         "bwatakado.src.infrastructure.repositories.customer_repository.Session",
-        name="session_mock"
+        name="session_mock",
     )
     @mock.patch(
         "bwatakado.src.infrastructure.repositories.customer_repository.create_engine",
-        name="create_engine_mock"
+        name="create_engine_mock",
     )
     def test_create_customer(
         self,
-        create_engine_mock: MagicMock,
+        _create_engine_mock: MagicMock,
         session_mock: MagicMock,
     ):
         """Test that a customer is created."""

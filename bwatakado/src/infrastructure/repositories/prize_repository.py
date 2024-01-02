@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from sqlalchemy import create_engine, delete
 from sqlalchemy.orm import Session
 
@@ -9,7 +11,9 @@ from bwatakado.src.infrastructure.models.prize_model import PrizeModel
 class PrizeRepository(IPrizeRepository):
     """Prize SQLite repository that provides prize CRUD functionalities."""
 
-    def __init__(self, db_path: str = "~/.bwatakado/bwatakado.sqlite") -> None:
+    def __init__(
+        self, db_path: str = f"{Path.home()}/.bwatakado/bwatakado.sqlite"
+    ) -> None:
         self.engine = create_engine(f"sqlite:///{db_path}")
 
     def create_prize(self, prize: Prize) -> Prize:

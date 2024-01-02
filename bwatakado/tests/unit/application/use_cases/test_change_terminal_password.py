@@ -10,12 +10,12 @@ from bwatakado.src.domain.entities.terminal import Terminal
 class TestChangeTerminalPassword:
     """ChangeTerminalPassword test cases."""
 
-    @mock.patch("bwatakado.src.application.interfaces.iterminal_configuration_service")
     @mock.patch("bwatakado.src.application.interfaces.ipassword_service")
+    @mock.patch("bwatakado.src.application.interfaces.iterminal_configuration_service")
     def test_change_terminal_password_with_right_current_password(
-            self,
-            terminal_configuration_service_mock: MagicMock,
-            password_service_mock: MagicMock,
+        self,
+        terminal_configuration_service_mock: MagicMock,
+        password_service_mock: MagicMock,
     ):
         """Test change terminal password with right current password."""
 
@@ -40,9 +40,9 @@ class TestChangeTerminalPassword:
     @mock.patch("bwatakado.src.application.interfaces.iterminal_configuration_service")
     @mock.patch("bwatakado.src.application.interfaces.ipassword_service")
     def test_change_terminal_with_wrong_current_password(
-            self,
-            terminal_configuration_service_mock: MagicMock,
-            password_service_mock: MagicMock,
+        self,
+        terminal_configuration_service_mock: MagicMock,
+        password_service_mock: MagicMock,
     ):
         """Test change terminal password with wrong current password."""
 

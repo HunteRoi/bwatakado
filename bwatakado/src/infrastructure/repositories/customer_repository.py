@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
@@ -11,7 +13,9 @@ from bwatakado.src.infrastructure.models.customer_model import CustomerModel
 class CustomerRepository(ICustomerRepository):
     """Customer repository implementation."""
 
-    def __init__(self, db_path: str = "~/.bwatakado/bwatakado.sqlite") -> None:
+    def __init__(
+        self, db_path: str = f"{Path.home()}/.bwatakado/bwatakado.sqlite"
+    ) -> None:
         self.engine = create_engine(f"sqlite:///{db_path}")
 
     def create_customer(self, customer: Customer) -> Customer:
@@ -24,9 +28,11 @@ class CustomerRepository(ICustomerRepository):
 
     def find_by_phone_number(self, phone_number: str) -> Customer | None:
         with Session(self.engine) as session:
-            model = session.query(CustomerModel).filter(
-                CustomerModel.phone_number == phone_number
-            ).first()
+            model = (
+                session.query(CustomerModel)
+                .filter(CustomerModel.phone_number == phone_number)
+                .first()
+            )
 
             if model is None:
                 return None
