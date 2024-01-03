@@ -7,7 +7,7 @@ from bwatakado.src.domain.exceptions.prize_locked_error import PrizeLockedError
 class TestPrize:
     """Unit tests for Prize."""
 
-    @pytest.fixture(autouse=True, name="prize")
+    @pytest.fixture(scope="function", autouse=True, name="prize")
     def setup_before_each(self):
         """Setup before each test."""
 
@@ -71,8 +71,7 @@ class TestPrize:
         """Test that two prizes are equal."""
 
         prize_1 = Prize("test name", "description test", "test type", 0)
-        prize_2 = Prize("test name", "description test",
-                        "test type", 0, prize_1.id)
+        prize_2 = Prize("test name", "description test", "test type", 0, prize_1.id)
 
         assert prize_1 == prize_2
 
@@ -89,5 +88,4 @@ class TestPrize:
     def test_prize_inequality(self, other_value):
         """Test that a prize is not equal to other objects."""
 
-        assert Prize("test name", "description test",
-                     "test type", 2, 1) != other_value
+        assert Prize("test name", "description test", "test type", 2, 1) != other_value

@@ -9,3 +9,7 @@ class ITicketRepository(ABC):
     @abstractmethod
     def find_by_code(self, code: str) -> Ticket | None:
         """Get a ticket by its code"""
+
+    @abstractmethod
+    def update_tickets(self, tickets: list[Ticket]) -> None:
+        """Update tickets"""

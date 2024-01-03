@@ -18,10 +18,10 @@ class CustomerRepository(ICustomerRepository):
     ) -> None:
         self.engine = create_engine(f"sqlite:///{db_path}")
 
-    def create_customer(self, customer: Customer) -> Customer:
+    def create_or_update_customer(self, customer: Customer) -> Customer:
         with Session(self.engine) as session:
             model = CustomerModel.from_customer(customer)
-            session.add(model)
+            session.merge(model)
             session.commit()
 
             return model.to_customer()
@@ -36,13 +36,5 @@ class CustomerRepository(ICustomerRepository):
 
             if model is None:
                 return None
-
-            return model.to_customer()
-
-    def update_customer(self, customer: Customer) -> Customer:
-        with Session(self.engine) as session:
-            model = CustomerModel.from_customer(customer)
-            session.merge(model)
-            session.commit()
 
             return model.to_customer()

@@ -27,3 +27,9 @@ class TicketRepository(ITicketRepository):
                 return None
 
             return ticket.to_ticket()
+
+    def update_tickets(self, tickets: list[Ticket]) -> None:
+        with Session(self.engine) as session:
+            models = [TicketModel.from_ticket(ticket) for ticket in tickets]
+            _ = [session.merge(model) for model in models]
+            session.commit()

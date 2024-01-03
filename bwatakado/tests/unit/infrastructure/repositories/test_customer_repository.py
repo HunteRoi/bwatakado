@@ -41,9 +41,9 @@ class TestCustomerRepository:
         )
         repository = CustomerRepository()
 
-        repository.create_customer(customer)
+        repository.create_or_update_customer(customer)
 
-        session_mock.add.assert_called_once()
+        session_mock.merge.assert_called_once()
         session_mock.commit.assert_called()
 
     @mock.patch(
@@ -72,10 +72,10 @@ class TestCustomerRepository:
             Locality(1, 1000, "Bruxelles", Province(1, "Bruxelles")),
         )
         repository = CustomerRepository()
-        repository.create_customer(customer)
+        repository.create_or_update_customer(customer)
 
         customer.add_ticket(Ticket(True))
-        repository.update_customer(customer)
+        repository.create_or_update_customer(customer)
 
-        session_mock.merge.assert_called_once()
+        session_mock.merge.assert_called()
         session_mock.commit.assert_called()

@@ -50,8 +50,7 @@ class Prize:
             raise PrizeLockedError()
 
         if number <= 0:
-            raise ValueError(
-                "Number of tickets to generate cannot be negative.")
+            raise ValueError("Number of tickets to generate cannot be negative.")
 
         winning_values = [True] * self.quantity_max + [False] * (
             number - self.quantity_max

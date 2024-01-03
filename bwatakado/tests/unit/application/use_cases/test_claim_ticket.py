@@ -22,7 +22,7 @@ from bwatakado.src.domain.value_objects.address import Address
 class TestClaimTicket:
     """Test the ClaimTicket usecase"""
 
-    @pytest.fixture(autouse=True, name="customer")
+    @pytest.fixture(scope="function", autouse=True, name="customer")
     def generate_customer(self) -> Customer:
         """Generate a customer object"""
         return Customer(
@@ -35,12 +35,12 @@ class TestClaimTicket:
             locality=Locality(1, 1000, "Bruxelles", Province(1, "Bruxelles")),
         )
 
-    @pytest.fixture(autouse=True, name="ticket")
+    @pytest.fixture(scope="function", autouse=True, name="ticket")
     def generate_ticket(self) -> Ticket:
         """Generate a ticket object"""
         return Ticket(is_winning=False)
 
-    @pytest.fixture(autouse=True, name="usecase")
+    @pytest.fixture(scope="function", autouse=True, name="usecase")
     @mock.patch(
         "bwatakado.src.application.interfaces.iticket_repository",
         name="ticket_repo_mock",

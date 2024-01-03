@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Optional
 
 from sqlalchemy import ForeignKey, Boolean, Integer, DateTime, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -20,8 +21,13 @@ class TicketModel(Base):
     has_been_claimed: Mapped[bool] = mapped_column(
         "has_been_claimed", Boolean, nullable=False
     )
+    drawn_at: Mapped[Optional[datetime]] = mapped_column(
+        "drawn_at", DateTime, nullable=True
+    )
     prize_id: Mapped[int] = mapped_column(ForeignKey("prize.id"), nullable=False)
     prize: Mapped["PrizeModel"] = relationship(back_populates="tickets")
+    customer_email: Mapped[Optional[str]] = mapped_column(ForeignKey("customer.email"))
+    customer: Mapped[Optional["CustomerModel"]] = relationship(back_populates="tickets")
 
     @classmethod
     def from_ticket(cls, ticket: Ticket) -> "TicketModel":
@@ -34,6 +40,7 @@ class TicketModel(Base):
             created_at=ticket.created_at,
             is_printed=ticket.is_printed,
             has_been_claimed=ticket.has_been_claimed,
+            drawn_at=ticket.drawn_at,
         )
 
     def to_ticket(self) -> Ticket:
@@ -46,4 +53,5 @@ class TicketModel(Base):
             created_at=self.created_at,
             is_printed=self.is_printed,
             has_been_claimed=self.has_been_claimed,
+            drawn_at=self.drawn_at,
         )

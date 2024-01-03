@@ -3,6 +3,9 @@ from unittest import mock
 import pytest
 
 from bwatakado.src.domain.entities.ticket import Ticket
+from bwatakado.src.domain.exceptions.ticket_already_drawn_error import (
+    TicketAlreadyDrawnError,
+)
 
 
 class TestTicket:
@@ -49,3 +52,21 @@ class TestTicket:
         """Test that a ticket is not equal to other objects."""
 
         assert Ticket(True) != other_value
+
+    def test_ticket_draw(self):
+        """Test that a ticket can be drawn."""
+
+        ticket = Ticket(True)
+
+        ticket.draw()
+
+        assert ticket.drawn_at is not None
+
+    def test_ticket_draw_raises_exception_when_already_drawn(self):
+        """Test that a ticket cannot be drawn twice."""
+
+        ticket = Ticket(True)
+        ticket.draw()
+
+        with pytest.raises(TicketAlreadyDrawnError):
+            ticket.draw()

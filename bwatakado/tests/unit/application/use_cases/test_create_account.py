@@ -243,7 +243,7 @@ class TestCreateAccount:
         self, usecase: CreateAccount, data: AccountData
     ):
         """Test that an account data is returned when valid data is provided"""
-        usecase.customer_repository.create_customer.return_value = data
+        usecase.customer_repository.create_or_update_customer.return_value = data
         customer = usecase.execute(data)
 
         assert customer.firstname == data.firstname
@@ -260,7 +260,7 @@ class TestCreateAccount:
         usecase.execute(data)
 
         usecase.locality_repository.get_by_id.assert_called_once()
-        usecase.customer_repository.create_customer.assert_called_once()
+        usecase.customer_repository.create_or_update_customer.assert_called_once()
 
     def test_create_account_raises_error_when_locality_does_not_exist(
         self, usecase: CreateAccount, data: AccountData

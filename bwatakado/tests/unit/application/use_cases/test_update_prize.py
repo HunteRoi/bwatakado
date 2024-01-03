@@ -15,7 +15,7 @@ from bwatakado.src.domain.exceptions.prize_not_found_error import PrizeNotFoundE
 class TestUpdatePrize:
     """UpdatePrize use case test cases."""
 
-    @pytest.fixture(autouse=True, name="base_prize")
+    @pytest.fixture(scope="function", autouse=True, name="base_prize")
     def generate_base_prize(self):
         """Generate a base prize."""
 

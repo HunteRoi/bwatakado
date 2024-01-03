@@ -30,7 +30,7 @@ class TestPrizeRepository:
         if expected_tickets_nbr == 0:
             assert not prize.all_tickets_generated
 
-    @pytest.fixture(autouse=True, name="repository")
+    @pytest.fixture(scope="function", autouse=True, name="repository")
     def generate_repository(self) -> IPrizeRepository:
         """Initialize the repository."""
 

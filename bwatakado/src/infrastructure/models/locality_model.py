@@ -1,3 +1,4 @@
+from typing import List
 from sqlalchemy import Integer, String, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -16,7 +17,7 @@ class LocalityModel(Base):
     province: Mapped[ProvinceModel] = relationship(back_populates="localities")
     postcode: Mapped[int] = mapped_column("postcode", Integer, nullable=False)
     name: Mapped[str] = mapped_column("name", String, nullable=False)
-    customers: Mapped["CustomerModel"] = relationship(
+    customers: Mapped[List["CustomerModel"]] = relationship(
         back_populates="locality", lazy="select"
     )
 

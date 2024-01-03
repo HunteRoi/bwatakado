@@ -12,7 +12,7 @@ from bwatakado.src.domain.exceptions.prize_not_found_error import PrizeNotFoundE
 class TestGenerateTickets:
     """Generate one prize's tickets use case test cases."""
 
-    @pytest.fixture(name="prize")
+    @pytest.fixture(scope="function", autouse=True, name="prize")
     def generate_prize(self) -> Prize:
         """Generate a prize."""
 

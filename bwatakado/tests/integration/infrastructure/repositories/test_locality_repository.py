@@ -12,7 +12,7 @@ from bwatakado.src.infrastructure.repositories.locality_repository import (
 class TestLocalityRepository:
     """LocalityRepository test cases."""
 
-    @pytest.fixture(autouse=True, name="repository")
+    @pytest.fixture(scope="function", autouse=True, name="repository")
     def generate_repository(self) -> ILocalityRepository:
         """Initialize the repository."""
 

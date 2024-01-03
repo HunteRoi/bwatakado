@@ -1,3 +1,5 @@
+from typing import List
+
 from sqlalchemy import ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -5,6 +7,7 @@ from bwatakado.src.domain.entities.customer import Customer
 from bwatakado.src.domain.value_objects.address import Address
 from bwatakado.src.infrastructure.models.base import Base
 from bwatakado.src.infrastructure.models.locality_model import LocalityModel
+from bwatakado.src.infrastructure.models.ticket_model import TicketModel
 
 
 class CustomerModel(Base):
@@ -22,6 +25,9 @@ class CustomerModel(Base):
     pin_code: Mapped[str] = mapped_column("pin_code", String, nullable=False)
     locality_id: Mapped[int] = mapped_column(ForeignKey("locality.id"), nullable=False)
     locality: Mapped[LocalityModel] = relationship(back_populates="customers")
+    tickets: Mapped[List[TicketModel]] = relationship(
+        back_populates="customer", lazy="select"
+    )
 
     @classmethod
     def from_customer(cls, customer: Customer) -> "CustomerModel":
@@ -36,6 +42,7 @@ class CustomerModel(Base):
             pin_code=customer.pin_code,
             locality_id=customer.locality.identifier,
             locality=LocalityModel.from_locality(customer.locality),
+            tickets=[TicketModel.from_ticket(ticket) for ticket in customer.tickets],
         )
 
     def to_customer(self) -> Customer:
@@ -49,4 +56,5 @@ class CustomerModel(Base):
             address=Address.from_str(self.address),
             pin_code=self.pin_code,
             locality=self.locality.to_locality(),
+            tickets=[ticket.to_ticket() for ticket in self.tickets],
         )

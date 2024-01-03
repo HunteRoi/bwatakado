@@ -55,4 +55,4 @@ class CreateAccount(ICreateAccount):
             locality,
         )
 
-        return self.customer_repository.create_customer(customer)
+        return self.customer_repository.create_or_update_customer(customer)

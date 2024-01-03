@@ -18,6 +18,7 @@ class Customer:
         address: Address,
         pin_code: str,
         locality: Locality,
+        tickets: list[Ticket] = None,
     ):
         if not firstname or not isinstance(firstname, str) or not firstname.isalpha():
             raise ValueError(
@@ -66,7 +67,7 @@ class Customer:
             raise ValueError("locality must be a valid locality object")
         self.locality = locality
 
-        self.tickets = list[Ticket]()
+        self.tickets = [] if tickets is None else tickets
 
     def add_ticket(self, ticket: Ticket):
         """Redeems a ticket for themselves"""
