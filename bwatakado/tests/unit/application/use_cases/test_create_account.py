@@ -7,6 +7,8 @@ from bwatakado.src.application.use_cases.create_account.account_data import Acco
 from bwatakado.src.application.use_cases.create_account.create_account import (
     CreateAccount,
 )
+from bwatakado.src.domain.entities.locality import Locality
+from bwatakado.src.domain.entities.province import Province
 from bwatakado.src.domain.value_objects.address import Address
 
 
@@ -15,12 +17,21 @@ class TestCreateAccount:
 
     @pytest.fixture(scope="function", autouse=True, name="usecase")
     @mock.patch(
-        "bwatakado.src.application.interfaces.icustomer_repository",
-        name="customer_repository",
+        "bwatakado.src.application.interfaces.ilocality_repository",
+        name="locality_repo_mock",
     )
-    def create_usecase(self, customer_repository: MagicMock):
+    @mock.patch(
+        "bwatakado.src.application.interfaces.icustomer_repository",
+        name="customer_repo_mock",
+    )
+    def create_usecase(
+        self, customer_repo_mock: MagicMock, locality_repo_mock: MagicMock
+    ):
         """Create a use case instance"""
-        return CreateAccount(customer_repository)
+        locality_repo_mock.get_by_id.return_value = Locality(
+            1, 1000, "Bruxelles", Province(1, "Bruxelles")
+        )
+        return CreateAccount(customer_repo_mock, locality_repo_mock)
 
     @pytest.fixture(scope="function", autouse=True, name="data")
     def create_account_data(self):
@@ -33,6 +44,7 @@ class TestCreateAccount:
             "email@email_example.com",
             Address("city", "state", "country", "0000"),
             "1234",
+            1,
         )
 
     @pytest.mark.parametrize(
@@ -41,122 +53,182 @@ class TestCreateAccount:
             AccountData(
                 "",
                 "lastname",
-                "phone_number",
-                "email",
+                "0000000000",
+                "e@e.c",
                 Address("city", "state", "country", "0000"),
-                "pin_code",
+                "0000",
+                1,
             ),
             AccountData(
                 None,
                 "lastname",
-                "phone_number",
-                "email",
+                "0000000000",
+                "e@e.c",
                 Address("city", "state", "country", "0000"),
-                "pin_code",
+                "0000",
+                1,
             ),
             AccountData(
                 "1234",
                 "lastname",
-                "phone_number",
-                "email",
+                "0000000000",
+                "e@e.c",
                 Address("city", "state", "country", "0000"),
-                "pin_code",
+                "0000",
+                1,
             ),
             AccountData(
                 "firstname",
                 "",
-                "phone_number",
-                "email",
+                "0000000000",
+                "e@e.c",
                 Address("city", "state", "country", "0000"),
-                "pin_code",
+                "0000",
+                1,
             ),
             AccountData(
                 "firstname",
                 None,
-                "phone_number",
-                "email",
+                "0000000000",
+                "e@e.c",
                 Address("city", "state", "country", "0000"),
-                "pin_code",
+                "0000",
+                1,
             ),
             AccountData(
                 "firstname",
                 "1234",
-                "phone_number",
-                "email",
+                "0000000000",
+                "e@e.c",
                 Address("city", "state", "country", "0000"),
-                "pin_code",
+                "0000",
+                1,
             ),
             AccountData(
                 "firstname",
                 "lastname",
                 "",
-                "email",
+                "e@e.c",
                 Address("city", "state", "country", "0000"),
-                "pin_code",
+                "0000",
+                1,
             ),
             AccountData(
                 "firstname",
                 "lastname",
                 None,
-                "email",
+                "e@e.c",
                 Address("city", "state", "country", "0000"),
-                "pin_code",
+                "0000",
+                1,
             ),
             AccountData(
                 "firstname",
                 "lastname",
-                "abc",
+                "0000000000",
                 "email",
                 Address("city", "state", "country", "0000"),
-                "pin_code",
+                "0000",
+                1,
             ),
             AccountData(
                 "firstname",
                 "lastname",
-                "phone_number",
+                "0000000000",
                 "",
                 Address("city", "state", "country", "0000"),
-                "pin_code",
+                "0000",
+                1,
             ),
             AccountData(
                 "firstname",
                 "lastname",
-                "phone_number",
+                "0000000000",
                 None,
                 Address("city", "state", "country", "0000"),
-                "pin_code",
+                "0000",
+                1,
             ),
             AccountData(
                 "firstname",
                 "lastname",
-                "phone_number",
+                "0000000000",
                 "abc",
                 Address("city", "state", "country", "0000"),
-                "pin_code",
+                "0000",
+                1,
             ),
             AccountData(
                 "firstname",
                 "lastname",
-                "phone_number",
+                "0000000000",
                 "abc@com",
                 Address("city", "state", "country", "0000"),
-                "pin_code",
+                "0000",
+                1,
             ),
             AccountData(
                 "firstname",
                 "lastname",
-                "phone_number",
-                "email",
+                "0000000000",
+                "e@e.c",
                 Address("city", "state", "country", "0000"),
                 None,
+                1,
             ),
             AccountData(
                 "firstname",
                 "lastname",
-                "phone_number",
-                "email",
+                "0000000000",
+                "e@e.c",
                 Address("city", "state", "country", "0000"),
                 "abc",
+                1,
+            ),
+            AccountData(
+                "firstname",
+                "lastname",
+                "0000000000",
+                "e@e.c",
+                None,
+                "0000",
+                1,
+            ),
+            AccountData(
+                "firstname",
+                "lastname",
+                "0000000000",
+                "e@e.c",
+                "",
+                "0000",
+                1,
+            ),
+            AccountData(
+                "firstname",
+                "lastname",
+                "0000000000",
+                "e@e.c",
+                Address("city", "state", "country", "0000"),
+                "0000",
+                -1,
+            ),
+            AccountData(
+                "firstname",
+                "lastname",
+                "0000000000",
+                "e@e.c",
+                Address("city", "state", "country", "0000"),
+                "0000",
+                "",
+            ),
+            AccountData(
+                "firstname",
+                "lastname",
+                "0000000000",
+                "e@e.c",
+                Address("city", "state", "country", "0000"),
+                "0000",
+                None,
             ),
         ],
     )
@@ -172,14 +244,14 @@ class TestCreateAccount:
     ):
         """Test that an account data is returned when valid data is provided"""
         usecase.customer_repository.create_customer.return_value = data
-        account_data = usecase.execute(data)
+        customer = usecase.execute(data)
 
-        assert account_data.firstname == data.firstname
-        assert account_data.lastname == data.lastname
-        assert account_data.phone_number == data.phone_number
-        assert account_data.email == data.email
-        assert account_data.address == data.address
-        assert account_data.pin_code == data.pin_code
+        assert customer.firstname == data.firstname
+        assert customer.lastname == data.lastname
+        assert customer.phone_number == data.phone_number
+        assert customer.email == data.email
+        assert customer.address == data.address
+        assert customer.pin_code == data.pin_code
 
     def test_create_account_saves_customer(
         self, usecase: CreateAccount, data: AccountData
@@ -187,4 +259,14 @@ class TestCreateAccount:
         """Validates that the account data is saved as a customer into the repository"""
         usecase.execute(data)
 
+        usecase.locality_repository.get_by_id.assert_called_once()
         usecase.customer_repository.create_customer.assert_called_once()
+
+    def test_create_account_raises_error_when_locality_does_not_exist(
+        self, usecase: CreateAccount, data: AccountData
+    ):
+        """Test that an error is raised when the locality does not exist"""
+        usecase.locality_repository.get_by_id.return_value = None
+
+        with pytest.raises(ValueError):
+            usecase.execute(data)

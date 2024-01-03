@@ -2,6 +2,8 @@ from unittest import mock
 from unittest.mock import MagicMock
 
 from bwatakado.src.domain.entities.customer import Customer
+from bwatakado.src.domain.entities.locality import Locality
+from bwatakado.src.domain.entities.province import Province
 from bwatakado.src.domain.value_objects.address import Address
 from bwatakado.src.infrastructure.repositories.customer_repository import (
     CustomerRepository,
@@ -34,6 +36,7 @@ class TestCustomerRepository:
             "email@example.com",
             Address("city", "state", "country", "0000"),
             "0000",
+            Locality(1, 1000, "Bruxelles", Province(1, "Bruxelles")),
         )
         repository = CustomerRepository()
 

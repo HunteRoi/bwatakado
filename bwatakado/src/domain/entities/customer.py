@@ -1,3 +1,4 @@
+from bwatakado.src.domain.entities.locality import Locality
 from bwatakado.src.domain.entities.ticket import Ticket
 from bwatakado.src.domain.exceptions.ticket_already_claimed_error import (
     TicketAlreadyClaimedError,
@@ -16,6 +17,7 @@ class Customer:
         email: str,
         address: Address,
         pin_code: str,
+        locality: Locality,
     ):
         if not firstname or not isinstance(firstname, str) or not firstname.isalpha():
             raise ValueError(
@@ -35,8 +37,7 @@ class Customer:
             or len(phone_number) != 10
             or not phone_number.isnumeric()
         ):
-            raise ValueError(
-                "phone_number must be a non-empty string of 10 digits")
+            raise ValueError("phone_number must be a non-empty string of 10 digits")
         self.phone_number = phone_number
 
         if (
@@ -45,8 +46,7 @@ class Customer:
             or "@" not in email
             or "." not in email
         ):
-            raise ValueError(
-                "email must be a non-empty string with a valid format")
+            raise ValueError("email must be a non-empty string with a valid format")
         self.email = email
 
         if not address or not isinstance(address, Address):
@@ -62,6 +62,10 @@ class Customer:
             raise ValueError("pin_code must be a non-empty string of 4 digits")
         self.pin_code = pin_code
 
+        if not locality or not isinstance(locality, Locality):
+            raise ValueError("locality must be a valid locality object")
+        self.locality = locality
+
         self.tickets = list[Ticket]()
 
     def add_ticket(self, ticket: Ticket):
@@ -75,6 +79,5 @@ class Customer:
         if not isinstance(other, Customer):
             return False
         return (
-            self.phone_number == other.phone_number
-            and self.pin_code == other.pin_code
+            self.phone_number == other.phone_number and self.pin_code == other.pin_code
         )

@@ -13,3 +13,4 @@ class AccountData:
     email: str
     address: Address
     pin_code: str
+    locality_id: int

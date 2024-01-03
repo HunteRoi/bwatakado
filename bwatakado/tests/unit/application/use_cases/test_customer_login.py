@@ -5,6 +5,8 @@ import pytest
 
 from bwatakado.src.application.use_cases.customer_login import CustomerLogin
 from bwatakado.src.domain.entities.customer import Customer
+from bwatakado.src.domain.entities.locality import Locality
+from bwatakado.src.domain.entities.province import Province
 from bwatakado.src.domain.exceptions.customer_not_found_error import (
     CustomerNotFoundError,
 )
@@ -47,6 +49,7 @@ class TestCustomerLogin:
             "e@e.c",
             Address("city", "state", "country", "0000"),
             "0000",
+            Locality(1, 1000, "Bruxelles", Province(1, "Bruxelles")),
         )
         usecase = CustomerLogin(customer_repository_mock)
 

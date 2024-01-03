@@ -4,6 +4,8 @@ from bwatakado.src.application.interfaces.icustomer_repository import (
     ICustomerRepository,
 )
 from bwatakado.src.domain.entities.customer import Customer
+from bwatakado.src.domain.entities.locality import Locality
+from bwatakado.src.domain.entities.province import Province
 from bwatakado.src.domain.value_objects.address import Address
 from bwatakado.src.infrastructure.models.base import Base
 from bwatakado.src.infrastructure.repositories.customer_repository import (
@@ -24,6 +26,7 @@ class TestPrizeRepository:
             email="email@example.com",
             address=Address("city", "state", "country", "0000"),
             pin_code="0000",
+            locality=Locality(1, 1000, "Bruxelles", Province(1, "Bruxelles")),
         )
 
     @pytest.fixture(autouse=True, name="repository")
