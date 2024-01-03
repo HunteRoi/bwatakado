@@ -38,3 +38,11 @@ class CustomerRepository(ICustomerRepository):
                 return None
 
             return model.to_customer()
+
+    def update_customer(self, customer: Customer) -> Customer:
+        with Session(self.engine) as session:
+            model = CustomerModel.from_customer(customer)
+            session.merge(model)
+            session.commit()
+
+            return model.to_customer()

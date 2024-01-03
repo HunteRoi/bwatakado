@@ -13,7 +13,7 @@ class TicketModel(Base):
     __tablename__ = "ticket"
 
     id: Mapped[int] = mapped_column("id", Integer, primary_key=True, autoincrement=True)
-    code: Mapped[str] = mapped_column("code", String, nullable=False)
+    code: Mapped[str] = mapped_column("code", String, nullable=False, unique=True)
     is_winning: Mapped[bool] = mapped_column("is_winning", Boolean, nullable=False)
     created_at: Mapped[datetime] = mapped_column("created_at", DateTime, nullable=False)
     is_printed: Mapped[bool] = mapped_column("is_printed", Boolean, nullable=False)

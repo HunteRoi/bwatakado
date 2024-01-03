@@ -74,6 +74,7 @@ class Customer:
             raise TicketAlreadyClaimedError(ticket.id)
 
         self.tickets.append(ticket)
+        ticket.has_been_claimed = True
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Customer):
