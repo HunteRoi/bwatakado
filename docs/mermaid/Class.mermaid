@@ -1,14 +1,10 @@
 classDiagram
     class Terminal {
         admin_password: String
-        set_admin_password(old, new)
-        create_prize()
-        duplicate_prize(prize)
-        update_prize(prize)
-        delete_prize(prize)
     }
 
     class Prize {
+        id: int
         name: String
         description: String
         type: String
@@ -20,15 +16,18 @@ classDiagram
     }
 
     class Ticket {
+        id: int
         code: String
-        creation_date: Date
+        created_at: Date
+        drawn_at: Date
         is_printed: boolean
         is_winning: boolean
         has_been_claimed: boolean
-        claim_prize()
+        draw()
     }
 
     class Customer {
+        id: int
         firstname: String
         lastname: String
         phone_number: String
@@ -36,15 +35,17 @@ classDiagram
         pin_code: String
         address: String
         add_ticket(ticket)
-        claim_prizes()
+        claim_tickets(tickets_codes)
     }
 
     class Locality {
+        id: int
         name: String
-        postal_code: int
+        postcode: int
     }
 
     class Province {
+        id: int
         name: String
     }
 
@@ -52,4 +53,3 @@ classDiagram
     Customer "1" --> "*" Ticket: has
     Province "1" --> "*" Locality: regroups
     Locality "1" <-- "*" Customer: lives in
-    Terminal "1" --> "*" Prize: manages

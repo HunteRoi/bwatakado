@@ -19,13 +19,13 @@ class ThreadedAction(ABC):
         self.thread.start()
 
     @abstractmethod
-    def _execute(self):
+    def execute(self):
         """Action to be executed."""
 
     def run(self):
         """Run the thread."""
         while self.is_playing:
-            self._execute()
+            self.execute()
             time.sleep(self.interval)
 
     def stop(self):

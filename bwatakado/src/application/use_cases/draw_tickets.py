@@ -41,9 +41,6 @@ class DrawTickets(IDrawTickets):
         if len(tickets_codes_diff) > 0:
             raise TicketsNotFoundError(list(tickets_codes_diff))
 
-        _ = [
-            ticket.draw()
-            for ticket in customer.tickets
-            if ticket.code in customer_tickets_codes
-        ]
+        customer.claim_tickets(list(customer_tickets_codes))
+
         self.ticket_repository.update_tickets(customer.tickets)

@@ -15,11 +15,11 @@ class TenantLogin(ITenantLogin):
         terminal_configuration_service: ITerminalConfigurationService,
         password_service: IPasswordService,
     ):
-        self.__configuration_service = terminal_configuration_service
-        self.__password_service = password_service
+        self.configuration_service = terminal_configuration_service
+        self.password_service = password_service
 
     def login(self, password: str) -> bool:
         configuration_path = f"{Path.home()}/.bwatakado/terminal_configuration.json"
-        terminal = self.__configuration_service.read(configuration_path)
+        terminal = self.configuration_service.read(configuration_path)
 
-        return self.__password_service.compare(password, terminal.admin_password)
+        return self.password_service.compare(password, terminal.admin_password)

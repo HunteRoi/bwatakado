@@ -294,3 +294,21 @@ class TestCustomer:
         )
 
         assert customer != "customer"
+
+    def test_claim_tickets(self):
+        """Validates that a customer can claim tickets"""
+        customer = Customer(
+            "firstname",
+            "lastname",
+            "0000000000",
+            "e@e.c",
+            Address("city", "state", "country", "0000"),
+            "0000",
+            Locality(1, 1000, "Bruxelles", Province(1, "Bruxelles")),
+        )
+        ticket = Ticket(True)
+        customer.add_ticket(ticket)
+
+        customer.claim_tickets([ticket.code])
+
+        assert ticket.drawn_at is not None

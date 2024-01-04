@@ -8,7 +8,7 @@ class BallRemovingThread(ThreadedAction):
         self.game_panel = game_panel
         super().__init__(0.1)
 
-    def _execute(self):
+    def execute(self):
         """Removes trapped balls from the game panel."""
         with self.game_panel:
             self.game_panel.remove_trapped_balls()

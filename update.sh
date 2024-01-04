@@ -1,7 +1,15 @@
 #!/bin/bash
 
-# Run the install.sh script
-./install.sh
+echo "Updating the application..."
 
-# Inform the user that the update is complete
-echo "Update is complete."
+# Pull the latest changes
+if [ -d ".git" ]; then
+  git pull
+else
+  echo "Git directory does not exist. Please clone the repository."
+  exit 1
+fi
+
+echo "Update complete, running startup script..."
+
+./install.sh

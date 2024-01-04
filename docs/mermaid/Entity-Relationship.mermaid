@@ -1,5 +1,5 @@
 erDiagram
-    %% Terminal is not stored in Database, but in a file
+%% Terminal is not stored in Database, but in a file
     Terminal {
         admin_password varchar(255)
     }
@@ -15,12 +15,13 @@ erDiagram
     Ticket {
         id int PK
         code varchar(255) UK
-        creationDate date
-        isPrinted boolean
-        isWinning boolean
-        hasBeenClaimed boolean
-        prizeId int FK
-        CustomerId int FK
+        created_at date
+        drawn_at date
+        is_printed boolean
+        is_winning boolean
+        has_been_claimed boolean
+        prize_id int FK
+        customer_id int FK
     }
 
     Customer {
@@ -28,17 +29,17 @@ erDiagram
         firstname varchar(255)
         lastname varchar(255)
         email varchar(255)
-        pinCode int(4)
-        phoneNumber varchar(255)
+        pin_code int(4)
+        phone_number varchar(255) UK
         address varchar(255)
-        localityId int FK
+        locality_id int FK
     }
 
     Locality {
         id int PK
         name varchar(255)
-        postalCode int
-        provinceId int FK
+        postcode int
+        province_id int FK
     }
 
     Province {

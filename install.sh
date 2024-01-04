@@ -23,10 +23,15 @@ if ! command -v python3 &> /dev/null; then
 fi
 
 if [ ! -d "venv" ]; then
-    echo "Creating virtual environment and installing dependencies..."
+    echo "Creating virtual environment..."
     python3 -m venv venv
-    sudo pip3 install -r requirements.txt
 fi
+
+echo "Activating virtual environment..."
+source venv/bin/activate
+
+echo "Installing dependencies..."
+pip3 install -r requirements.txt
 
 echo "Starting the application"
 python3 bwatakado.py

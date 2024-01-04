@@ -84,6 +84,10 @@ class Customer:
         self.tickets.append(ticket)
         ticket.has_been_claimed = True
 
+    def claim_tickets(self, tickets_codes: list[str]):
+        """Redeems a list of tickets for themselves"""
+        _ = [ticket.draw() for ticket in self.tickets if ticket.code in tickets_codes]
+
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Customer):
             return False

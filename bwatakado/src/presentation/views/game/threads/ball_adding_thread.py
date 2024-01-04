@@ -8,7 +8,7 @@ class BallAddingThread(ThreadedAction):
         self.game_panel = game_panel
         super().__init__()
 
-    def _execute(self):
+    def execute(self):
         """Adds a ball to the game panel."""
         with self.game_panel:
             self.game_panel.add_ball()
