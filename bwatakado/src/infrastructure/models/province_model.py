@@ -10,7 +10,7 @@ class ProvinceModel(Base):
 
     __tablename__ = "province"
 
-    id: Mapped[int] = mapped_column("id", Integer, primary_key=True, nullable=False)
+    id: Mapped[int] = mapped_column("id", Integer, primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column("name", String, nullable=False)
     localities: Mapped["LocalityModel"] = relationship(
         back_populates="province", lazy="select"

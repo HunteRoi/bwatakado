@@ -12,7 +12,7 @@ class LocalityModel(Base):
 
     __tablename__ = "locality"
 
-    id: Mapped[int] = mapped_column("id", Integer, primary_key=True, nullable=False)
+    id: Mapped[int] = mapped_column("id", Integer, primary_key=True, autoincrement=True)
     province_id: Mapped[int] = mapped_column(ForeignKey("province.id"), nullable=False)
     province: Mapped[ProvinceModel] = relationship(back_populates="localities")
     postcode: Mapped[int] = mapped_column("postcode", Integer, nullable=False)

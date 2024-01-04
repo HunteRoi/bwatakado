@@ -26,7 +26,7 @@ class TicketModel(Base):
     )
     prize_id: Mapped[int] = mapped_column(ForeignKey("prize.id"), nullable=False)
     prize: Mapped["PrizeModel"] = relationship(back_populates="tickets")
-    customer_email: Mapped[Optional[str]] = mapped_column(ForeignKey("customer.email"))
+    customer_id: Mapped[Optional[int]] = mapped_column(ForeignKey("customer.id"))
     customer: Mapped[Optional["CustomerModel"]] = relationship(back_populates="tickets")
 
     @classmethod

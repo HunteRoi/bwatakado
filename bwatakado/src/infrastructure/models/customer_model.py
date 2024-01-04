@@ -1,6 +1,6 @@
 from typing import List
 
-from sqlalchemy import ForeignKey, String
+from sqlalchemy import ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from bwatakado.src.domain.entities.customer import Customer
@@ -15,9 +15,8 @@ class CustomerModel(Base):
 
     __tablename__ = "customer"
 
-    email: Mapped[str] = mapped_column(
-        "email", String, primary_key=True, nullable=False
-    )
+    id: Mapped[int] = mapped_column("id", Integer, primary_key=True, autoincrement=True)
+    email: Mapped[str] = mapped_column("email", String, nullable=False)
     firstname: Mapped[str] = mapped_column("firstname", String, nullable=False)
     lastname: Mapped[str] = mapped_column("lastname", String, nullable=False)
     phone_number: Mapped[str] = mapped_column("phone_number", String, nullable=False)
@@ -43,6 +42,7 @@ class CustomerModel(Base):
             locality_id=customer.locality.identifier,
             locality=LocalityModel.from_locality(customer.locality),
             tickets=[TicketModel.from_ticket(ticket) for ticket in customer.tickets],
+            id=customer.id,
         )
 
     def to_customer(self) -> Customer:
@@ -57,4 +57,5 @@ class CustomerModel(Base):
             pin_code=self.pin_code,
             locality=self.locality.to_locality(),
             tickets=[ticket.to_ticket() for ticket in self.tickets],
+            customer_id=self.id,
         )

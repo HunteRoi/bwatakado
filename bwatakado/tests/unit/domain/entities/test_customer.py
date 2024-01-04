@@ -123,6 +123,41 @@ class TestCustomer:
                 locality,
             )
 
+    @pytest.mark.parametrize("customer_id", ["", "abc", -1])
+    def test_create_customer_raises_value_error_when_invalid_customer_id(
+        self, customer_id: int
+    ):
+        """Validates that an invalid customer's identifier raises an error"""
+        with pytest.raises(ValueError):
+            Customer(
+                "firstname",
+                "lastname",
+                "0000000000",
+                "e@e.c",
+                Address("city", "state", "country", "0000"),
+                "0000",
+                Locality(1, 1000, "Bruxelles", Province(1, "Bruxelles")),
+                customer_id=customer_id,
+            )
+
+    @pytest.mark.parametrize("customer_id", [1, 5, 6, None])
+    def test_create_customer_accepts_customer_id_if_none_or_greather_than_zero(
+        self, customer_id: int
+    ):
+        """Validates that a customer's identifier is properly generated"""
+        customer = Customer(
+            "firstname",
+            "lastname",
+            "0000000000",
+            "e@e.c",
+            Address("city", "state", "country", "0000"),
+            "0000",
+            Locality(1, 1000, "Bruxelles", Province(1, "Bruxelles")),
+            customer_id=customer_id,
+        )
+
+        assert customer.id == customer_id
+
     @pytest.mark.parametrize(
         "firstname, lastname, phone_number, email, address, pin_code, locality",
         [

@@ -19,7 +19,14 @@ class Customer:
         pin_code: str,
         locality: Locality,
         tickets: list[Ticket] = None,
+        customer_id: int = None,
     ):
+        if customer_id is not None and (
+            not isinstance(customer_id, int) or customer_id < 0
+        ):
+            raise ValueError("customer_id must be an integer greater than 0")
+        self.id = customer_id
+
         if not firstname or not isinstance(firstname, str) or not firstname.isalpha():
             raise ValueError(
                 "firstname must be a non-empty string of alphabetic characters"
